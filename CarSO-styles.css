@@ -1,0 +1,135 @@
+/* Arbitrary, but for future reference, all custom classes should follow the convention of using hyphens. No camel case, no underscores. This will help to reduce confusion for future media chairs. */
+
+.site-info { display: none; } /* do not delete this—this removes the "proudly powered by Wordpress" message */
+
+/* WordPress Twenty-Seventeen has uppercase h1 titles by default. This changes the styles of h1 to whatever you set below */
+.page .panel-content .entry-title, .page-title, body.page:not(.twentyseventeen-front-page) .entry-title {
+    text-transform:none;
+    letter-spacing:0.05em;
+    font-size: 223%; /* "the smallest prime for which the two nearest primes on either side of it are 16 units apart" -Wikipedia
+    the real reason I chose 223 is so that */
+}
+
+.site-title {
+    /* WordPress Twenty-Seventeen has uppercase site titles by default. That is, the front page used to scream "CAROLINA SCIENCE OLYMPIAD" all big and ugly. Setting text-transform to "capitalize" forces title case instead of all uppercase */
+    text-transform: capitalize; 
+    font-family: 'Segoe UI', 'Frutiger', 'Avenir Black', 'Proxima Nova', sans-serif; /* font support for Windows, macOS, Chromebook */
+    font-weight: bold; /* to prevent heavy weights */
+    letter-spacing: 0; /* removes ugly default spacing */
+}
+
+/* removes Alert Carolina banners, which scare you into thinking a scammer has hacked into your computer*/
+.alertCarolinaMessage {
+    display:none;
+    width:0;
+}
+
+/* Alert Carolina autmoatically posts a message banner at the top of the screen. These messages are kind of freaky, especially if you're not at UNC and you're just looking for general information (e.g. about a SciOly invitational). This adds a custom message that provides context.
+
+Note that we don't actually need this because the .alertCarolinaMessage is set to display:none
+*/
+.alertCarolinaMessage::after {
+    white-space:pre; /* you need to set white-space in order to make line breaks (\A) work*/
+    display:block; 
+    content: "\A UNC's safety alert systems automatically posted the message above. \A It probably has nothing to do with Science Olympiad, so don't panic :) \A –Carolina Science Olympiad team";
+    text-align: right;
+    font-size: 60%; 
+}
+
+/* custom 404 error message */
+.error-404 .page-content p { font-size:0; }
+.error-404 .page-content p::before {
+    font-size:12pt;
+    white-space:pre-wrap;
+    hyphens:auto;
+    content:"Uh-oh: it's the classic mystery of the 404. This page has gone missing, and we don't know where it is. Sorry! \A\A However, while we didn't find the page, we did find magnesium sulfate, low-density polyethylene, squirrel hair, dipteran larvae, a suitcase full of money (aka SciOly tests), not to mention a fingerprint with a plain whorl. Maybe with these clues, you can figure out what happened to the page? \A\A Or you could try a quick search below. That works too.";
+}
+
+/* makes the top menu with "Home", "Volunteering", etc. much fancier */
+#top-menu .menu-item{
+    transition:0.5s;
+}
+#top-menu .menu-item a{
+    color:#00afff;
+}
+#top-menu .menu-item:hover {
+    background-color:#b0e8ff;
+}
+
+.navigation-top {
+    background:none;
+    border-top:none;
+}
+
+.navigation-top.site-navigation-fixed{
+    background:#ffffff;
+}
+/* end fancier top menu CSS. If a future WordPress Twenty-Seventeen update happens to destroy the functionality of this fancy design, the code above can be deleted to restore the top menu to how it originally was */
+
+.exec-col { width:50%;  vertical-align: top; }
+.exec-row { border:none; }
+
+.exec-photo {
+    width:300px;
+    height:300px;
+    filter: blur(0);
+    transition: 0.5s;
+}
+
+.exec-wrapper {
+    position: relative;
+    height: 300px;
+    width: 300px;
+    overflow:hidden;
+}
+
+.exec-wrapper:hover .exec-photo {
+    filter: blur(2px);
+}
+
+.exec-wrapper:hover .exec-biography {
+    visibility: visible;
+    opacity: 0.8;
+}
+
+.exec-biography{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: #424242;
+    color: #ffffff;
+    visibility: hidden;
+    opacity: 0;
+    overflow: auto;
+    scrollbar-width: thin; /* currently doesn't exist, but W3 has slated to add this in the future */
+    padding: 0.5em;
+    transition: 0.5s;
+}
+
+/* custom scrollbars that only work on Chrome, Safari, and the new Edge. These reduce clutter on the exec bios where scrolling is needed, and it's better to have nice scrollbars in some browsers rather than ugly scrollbars in all browsers */
+.exec-biography::-webkit-scrollbar {
+    width: 6px;
+}
+
+.exec-biography::-webkit-scrollbar-thumb{
+    background:#aaaaaa;
+    //border-radius:3px;
+}
+
+/* the styles below create responsive tables such that when you view the website on a smartphone, the table rows automatically stack themselves vertically. This is especially useful for the Executive Board biographies found on the "Meet the Team" page—the bios will be in two columns on large browsers, but when space is limited (like on smartphones) the two columns collapse into one*/
+@media only screen and (max-width: 748px)
+{
+    .exec-col {
+        width:200%;
+		display: table-row;
+        border:none;
+	}
+    
+    .navigation-top {
+        background:#ffffff;
+        border-top:1px solid #eee;
+    }
+    /* .exec-col {
+        width:100%;
+    } */
+}
