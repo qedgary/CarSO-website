@@ -1,4 +1,18 @@
-/* Arbitrary, but for future reference, all custom classes should follow the convention of using hyphens. No camel case, no underscores. This will help to reduce confusion for future media chairs. */
+/* Arbitrary, but for future reference, all custom classes should follow the convention of using hyphens. No camel case, no underscores. This will help to reduce confusion for future media chairs. (This is also known as kebab case, because variables look like food skewered on a shish kebab. ) */
+
+/* Begin Google fonts stuff. This imports Roboto from Google fonts, allowing us to replace the ugly, poorly hinted Libre Franklin. We need to import each font weight separately instead of importing them all in the single file provided by Google Fonts, because multiple font weights imported in a single CSS file causes WordPress to throw a 404 error. We also need to ensure each imported URL doesn't have Google's default &display=swap at the end. This, too, causes WordPress to throw a 404 error.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto');                 /* regular */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1');          /* italic */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700');        /* bold */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,700'); /* bold italic */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900');        /* black */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900'); /* black italic */
+/* End Google fonts stuff. */
+
+.page {
+    font-family: 'Roboto',sans-serif;
+}
 
 .site-info { display: none; } /* do not delete this—this removes the "proudly powered by Wordpress" message */
 
@@ -7,31 +21,28 @@
     text-transform:none;
     letter-spacing:0.05em;
     font-size: 223%; /* "the smallest prime for which the two nearest primes on either side of it are 16 units apart" -Wikipedia
-    the real reason I chose 223 is so that */
+    the real reason I chose 223 is so that long h1 text isn't longer than a single line */
 }
 
 .site-title {
     /* WordPress Twenty-Seventeen has uppercase site titles by default. That is, the front page used to scream "CAROLINA SCIENCE OLYMPIAD" all big and ugly. Setting text-transform to "capitalize" forces title case instead of all uppercase */
     text-transform: capitalize; 
-    font-family: 'Segoe UI', 'Frutiger', 'Avenir Black', 'Proxima Nova', sans-serif; /* font support for Windows, macOS, Chromebook */
+    font-family: 'Segoe UI', 'Proxima Nova', 'Avenir', 'Open Sans', 'Oxygen', 'Helvetica Neue', 'Roboto', 'Ubuntu', 'Cantarell', sans-serif; /* font support for Windows, macOS, Chromebook, Ubuntu, GNOME */
     font-weight: bold; /* to prevent heavy weights */
     letter-spacing: 0; /* removes ugly default spacing */
 }
 
 /* removes Alert Carolina banners, which scare you into thinking a scammer has hacked into your computer*/
-.alertCarolinaMessage {
-    display:none;
-    width:0;
-}
+.alertCarolinaMessage { display:none; width:0; }
 
 /* Alert Carolina autmoatically posts a message banner at the top of the screen. These messages are kind of freaky, especially if you're not at UNC and you're just looking for general information (e.g. about a SciOly invitational). This adds a custom message that provides context.
 
 Note that we don't actually need this because the .alertCarolinaMessage is set to display:none
 */
 .alertCarolinaMessage::after {
-    white-space:pre; /* you need to set white-space in order to make line breaks (\A) work*/
+    white-space:pre-wrap; /* you need to set white-space in order to make line breaks (\A) work*/
     display:block; 
-    content: "\A UNC's safety alert systems automatically posted the message above. \A It probably has nothing to do with Science Olympiad, so don't panic :) \A –Carolina Science Olympiad team";
+    content: "\A UNC's alert systems automatically posted the message above about a safety issue on campus. \A If you're not in Chapel Hill, the message may not apply.";
     text-align: right;
     font-size: 60%; 
 }
@@ -42,33 +53,24 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     font-size:12pt;
     white-space:pre-wrap;
     hyphens:auto;
-    content:"Uh-oh: it's the classic mystery of the 404. This page has gone missing, and we don't know where it is. Sorry! \A\A However, while we didn't find the page, we did find magnesium sulfate, low-density polyethylene, squirrel hair, dipteran larvae, a suitcase full of money (aka SciOly tests), not to mention a fingerprint with a plain whorl. Maybe with these clues, you can figure out what happened to the page? \A\A Or you could try a quick search below. That works too.";
+    content:"Uh-oh: it's the classic mystery of the 404. This page has gone missing, and we don't know where it is. Sorry! \A\A However, while we didn't find the page, we did find magnesium sulfate, low-density polyethylene, squirrel hair, dipteran larvae, a suitcase full of money (aka SciOly tests), plus a fingerprint with a plain whorl. Maybe with these clues, you can figure out what happened to the page? \A\A Or you could try a quick search below. That works too.";
 }
 
-/* makes the top menu with "Home", "Volunteering", etc. much fancier */
-#top-menu .menu-item{
-    transition:0.5s;
-}
-#top-menu .menu-item a{
-    color:#00afff;
-}
-#top-menu .menu-item:hover {
-    background-color:#b0e8ff;
-}
+/* begin fancy top menu. This makes the top menu with "Home", "Volunteering", "Contact", etc. much fancier */
+#top-menu .menu-item{ transition:0.5s; } /* set time for hover transition to half a second */
+#top-menu .menu-item a{ color:#00afff; font-size: 110%; } /* make font blue and bigger */
+#top-menu .menu-item:hover { background-color:#b0e8ff; } /* on hover, menu items get blue background rectangle */
 
-.navigation-top {
-    background:none;
-    border-top:none;
-}
+.navigation-top { background:none; border-top:none; } /* front page becomes purely picture when loaded; no white bar at bottom of screen */
 
-.navigation-top.site-navigation-fixed{
-    background:#ffffff;
-}
+.navigation-top.site-navigation-fixed{ background:#fafafa; } /* why #fafafa? That just happens to be the default color of the element behind the top menu when .navigation-top has background changed to none. */
+
 /* end fancier top menu CSS. If a future WordPress Twenty-Seventeen update happens to destroy the functionality of this fancy design, the code above can be deleted to restore the top menu to how it originally was */
 
-.exec-col { width:50%;  vertical-align: top; }
-.exec-row { border:none; }
+/* the div that contains the name, position, and biography of each executive board member. All the other classes beginning with "exec" are descendants of this class */
+.exec-container { width: 100%; max-width:364px; margin: auto; vertical-align: bottom; text-align:center; display: inline-block; }
 
+/* an img class */
 .exec-photo {
     width:300px;
     height:300px;
@@ -76,22 +78,27 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     transition: 0.5s;
 }
 
-.exec-wrapper {
+/* a div class that contains the image and text, which detects the hover */
+.exec-photo-wrapper {
     position: relative;
     height: 300px;
     width: 300px;
+    left:50%; transform: translateX(-50%); /* centers the photo */
     overflow:hidden;
 }
 
-.exec-wrapper:hover .exec-photo {
+/* if a hovered exec-photo-wrapper contains an exec-photo, then blur the photo*/
+.exec-photo-wrapper:hover .exec-photo {
     filter: blur(2px);
 }
 
-.exec-wrapper:hover .exec-biography {
+/* if a hovered exec-photo-wrapper contains an exec-biography, then change the exec-biography to visible (by default, its visibility is hidden) */
+.exec-photo-wrapper:hover .exec-biography {
     visibility: visible;
     opacity: 0.8;
 }
 
+/* a div class that contains the biographical text for each executive board member */
 .exec-biography{
     position: absolute;
     top: 0;
@@ -101,8 +108,10 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     visibility: hidden;
     opacity: 0;
     overflow: auto;
-    scrollbar-width: thin; /* currently doesn't exist, but W3 has slated to add this in the future */
+    scrollbar-width: thin; /* currently doesn't exist, but W3 has slated to add this in the future. Already works in Firefox */
     padding: 0.5em;
+    text-align: left;
+    hyphens: auto;
     transition: 0.5s;
 }
 
@@ -113,23 +122,33 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 
 .exec-biography::-webkit-scrollbar-thumb{
     background:#aaaaaa;
-    //border-radius:3px;
 }
 
+/* sets the styles for the "Meet the Team" page ONLY. All WordPress pages have a unique numerical ID, so this code only applies to the Meet the Team page. If for some reason we created a new page for executive board biographies, then it wouldn't have id 87, and so the photos and biographies wouldn't display correctly. */
+.page-id-87 #content > div.wrap {
+    max-width:90%; /* don't want to go overboard by setting it to 100%. I've tested it on Chromium Edge and it gives no problem, but I feel like somehow something bad will happen on some other browser. 90% still keeps some margin area on wide screen broswers, which is good, whereas 100% does not. */
+}
+.page-id-87 #content > div.wrap > .content-area {
+    max-width: 100%;
+    text-align:center;
+}
+.page-id-87 #content > div.wrap > .content-area h1 {
+    text-align: center;
+    font-size: 300%;
+}
+
+.placeholder { font-size: 0; height: 0; }
+
 /* the styles below create responsive tables such that when you view the website on a smartphone, the table rows automatically stack themselves vertically. This is especially useful for the Executive Board biographies found on the "Meet the Team" page—the bios will be in two columns on large browsers, but when space is limited (like on smartphones) the two columns collapse into one*/
-@media only screen and (max-width: 748px)
+@media only screen and (max-width: 48em)
 {
-    .exec-col {
-        width:200%;
-		display: table-row;
-        border:none;
-	}
-    
     .navigation-top {
         background:#ffffff;
         border-top:1px solid #eee;
     }
-    /* .exec-col {
-        width:100%;
-    } */
+    /*
+    .page-id-87 #content > div.wrap > .content-area {
+        max-width: 100%;
+        text-align:center;
+    }*/
 }
