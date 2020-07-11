@@ -1,7 +1,6 @@
-/* Arbitrary, but for future reference, all custom classes should follow the convention of using hyphens. No camel case, no underscores. This will help to reduce confusion for future media chairs. (This is also known as kebab case, because variables look like food skewered on a shish kebab. ) */
+/* Arbitrary, but for future reference, all custom classes should follow the convention of using hyphens. No camel case, no underscores. This will help to reduce confusion for future media chairs. (This is also known as kebab case, because variables look like food skewered on a shish kebab.) */
 
-/* Begin Google fonts stuff. This imports Roboto from Google fonts, allowing us to replace the ugly, poorly hinted Libre Franklin. We need to import each font weight separately instead of importing them all in the single file provided by Google Fonts, because multiple font weights imported in a single CSS file causes WordPress to throw a 404 error. We also need to ensure each imported URL doesn't have Google's default &display=swap at the end. This, too, causes WordPress to throw a 404 error.
-*/
+/* Begin Google fonts stuff. This imports Roboto from Google fonts, allowing us to replace the ugly, poorly hinted Libre Franklin. We need to import each font weight separately instead of importing them all in the single file provided by Google Fonts, because multiple font weights imported in a single CSS file causes WordPress to throw a 404 error. We also need to ensure each imported URL doesn't have Google's default &display=swap at the end. This, too, causes WordPress to throw a 404 error. */
 @import url('https://fonts.googleapis.com/css2?family=Roboto');                 /* regular */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1');          /* italic */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700');        /* bold */
@@ -10,7 +9,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900'); /* black italic */
 /* End Google fonts stuff. */
 
-.page {
+.page, .site {
     font-family: 'Roboto',sans-serif;
 }
 
@@ -53,8 +52,25 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     font-size:12pt;
     white-space:pre-wrap;
     hyphens:auto;
-    content:"Uh-oh: it's the classic mystery of the 404. This page has gone missing, and we don't know where it is. Sorry! \A\A However, while we didn't find the page, we did find magnesium sulfate, low-density polyethylene, squirrel hair, dipteran larvae, a suitcase full of money (aka SciOly tests), plus a fingerprint with a plain whorl. Maybe with these clues, you can figure out what happened to the page? \A\A Or you could try a quick search below. That works too.";
+    content:"Uh-oh: it's the classic mystery of the 404. This page has gone missing, and we don't know where it is. Sorry! \A\A However, while we didn't find the page, we did find magnesium sulfate, low-density polyethylene, squirrel hair, dipteran larvae, a suitcase full of money (aka SciOly tests), plus a fingerprint with a radial loop. Maybe with these clues, you can figure out what happened to the page? \A\A Or you could try a quick search below. That works too.";
 }
+
+.error-404 h1 { margin-bottom: 0px; }
+
+.error-404 h1.page-title::after {
+    content: " ";
+    display: block;
+    background-image: url(https://scioly.web.unc.edu/files/2020/07/fingerprint404.png);
+    background-size: 195px 80px;
+    background-repeat: no-repeat;
+    white-space: pre;
+    height: 120px;
+    width: auto;
+    background-position-x: center;
+    background-position-y: bottom;
+}
+
+#wp-custom-header img { filter: contrast(0.8); }
 
 /* begin fancy top menu. This makes the top menu with "Home", "Volunteering", "Contact", etc. much fancier */
 #top-menu .menu-item{ transition:0.5s; } /* set time for hover transition to half a second */
@@ -65,7 +81,12 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 
 .navigation-top.site-navigation-fixed{ background:#fafafa; } /* why #fafafa? That just happens to be the default color of the element behind the top menu when .navigation-top has background changed to none. */
 
-/* end fancier top menu CSS. If a future WordPress Twenty-Seventeen update happens to destroy the functionality of this fancy design, the code above can be deleted to restore the top menu to how it originally was */
+/* end fancier top menu CSS. If a future WordPress Twenty-Seventeen update happens to destroy the functionality of this fancy design, the code above can be deleted to restore the top menu to how it originally was (it'll prob never happen, because Twenty-Seventeen has been out for three years now, and WordPress won't just go revamping old themes) */
+
+/* social media icons at the bottom of the page are CarSO blue instead of black when mouse hovers them */
+.social-navigation a{ transition:0.3s; }
+.social-navigation a:hover, .social-navigation a:focus { background-color: #00afff; }
+
 
 /* the div that contains the name, position, and biography of each executive board member. All the other classes beginning with "exec" are descendants of this class */
 .exec-container { width: 100%; max-width:364px; margin: auto; vertical-align: bottom; text-align:center; display: inline-block; }
