@@ -1,6 +1,12 @@
 /* Arbitrary, but for future reference, all custom classes should follow the convention of using hyphens. No camel case, no underscores. This will help to reduce confusion for future media chairs. (This is also known as kebab case, because variables look like food skewered on a shish kebab.) */
 
-/* Begin Google fonts stuff. This imports Roboto from Google fonts, allowing us to replace the ugly, poorly hinted Libre Franklin. We need to import each font weight separately instead of importing them all in the single file provided by Google Fonts, because multiple font weights imported in a single CSS file causes WordPress to throw a 404 error. We also need to ensure each imported URL doesn't have Google's default &display=swap at the end. This, too, causes WordPress to throw a 404 error. */
+/*
+    ----------------------------------------------------
+    Google Fonts
+    This imports Roboto from Google fonts, allowing us to replace the ugly, poorly hinted Libre Franklin. We need to import each font weight separately instead of importing them all in the single file provided by Google Fonts, because multiple font weights imported in a single CSS file causes WordPress to throw a 404 error. We also need to ensure each imported URL doesn't have Google's default &display=swap at the end. This, too, causes WordPress to throw a 404 error.
+    ----------------------------------------------------
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto');                 /* regular */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1');          /* italic */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700');        /* bold */
@@ -31,10 +37,20 @@
     letter-spacing: 0; /* removes ugly default spacing */
 }
 
-/* removes Alert Carolina banners, which scare you into thinking a scammer has hacked into your computer*/
+h2 {
+    font-weight: bold;
+    color: #000000;
+}
+
+/*
+    ----------------------------------------------------
+    Alert Carolina message
+    Removes Alert Carolina banners, which scare you into thinking a scammer has hacked into your computer
+    ----------------------------------------------------
+*/
 .alertCarolinaMessage { display:none; width:0; }
 
-/* Alert Carolina autmoatically posts a message banner at the top of the screen. These messages are kind of freaky, especially if you're not at UNC and you're just looking for general information (e.g. about a SciOly invitational). This adds a custom message that provides context.
+/* Alert Carolina automatically posts a message banner at the top of the screen. These messages are kind of freaky, especially if you're not at UNC and you're just looking for general information (e.g. about a SciOly invitational). This adds a custom message that provides context.
 
 Note that we don't actually need this because the .alertCarolinaMessage is set to display:none
 */
@@ -46,7 +62,39 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     font-size: 60%; 
 }
 
-/* custom 404 error message */
+/*
+    ----------------------------------------------------
+    Pseudobuttons
+    A fake button UI that lets us link to something
+    ----------------------------------------------------
+*/
+.pseudobutton {
+    width: 100px; 
+    border: 1.5px solid #0094FF; 
+    background-color: #0094FF; 
+    text-align: center;
+    transition: 0.3s;
+}
+
+.pseudobutton:hover, .pseudobutton:focus {
+    background-color: #FFFFFF; 
+}
+
+.pseudobutton a{
+    color: #FFFFFF;
+    transition: 0.3s;
+}
+
+.pseudobutton:hover a, .pseudobutton:focus a {
+    color: #333333;
+}
+
+
+/*
+    ----------------------------------------------------
+    Custom 404 page
+    ----------------------------------------------------
+*/
 .error-404 .page-content p { font-size:0; }
 .error-404 .page-content p::before {
     font-size:12pt;
@@ -60,7 +108,7 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 .error-404 h1.page-title::after {
     content: " ";
     display: block;
-    background-image: url(https://scioly.web.unc.edu/files/2020/07/fingerprint404.png);
+    background-image: url(https://scioly.web.unc.edu/wp-content/uploads/sites/22331/2020/07/fingerprint404.png);
     background-size: 195px 80px;
     background-repeat: no-repeat;
     white-space: pre;
@@ -70,11 +118,17 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     background-position-y: bottom;
 }
 
+/*
+    ----------------------------------------------------
+    Top navigation menu
+    ----------------------------------------------------
+*/
+
 #wp-custom-header img { filter: contrast(0.8); }
 
 /* begin fancy top menu. This makes the top menu with "Home", "Volunteering", "Contact", etc. much fancier */
 #top-menu .menu-item{ transition:0.5s; } /* set time for hover transition to half a second */
-#top-menu .menu-item a{ color:#00afff; font-size: 110%; } /* make font blue and bigger */
+#top-menu .menu-item a{ color:#0094FF; font-size: 120%; } /* make font blue and bigger. Note that we use the web accessible blue #0094FF instead of our usual blue #00AFFF */
 #top-menu .menu-item:hover { background-color:#b0e8ff; } /* on hover, menu items get blue background rectangle */
 
 .navigation-top { background:none; border-top:none; } /* front page becomes purely picture when loaded; no white bar at bottom of screen */
@@ -85,11 +139,18 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 
 /* social media icons at the bottom of the page are CarSO blue instead of black when mouse hovers them */
 .social-navigation a{ transition:0.3s; }
-.social-navigation a:hover, .social-navigation a:focus { background-color: #00afff; }
+.social-navigation a:hover, .social-navigation a:focus { background-color: #0094FF; }
 
+/*
+    ----------------------------------------------------
+    Executive board photos and bios
+    ----------------------------------------------------
+*/
 
 /* the div that contains the name, position, and biography of each executive board member. All the other classes beginning with "exec" are descendants of this class */
-.exec-container { width: 100%; max-width:364px; margin: auto; vertical-align: bottom; text-align:center; display: inline-block; }
+.exec-container { width: 100%; max-width:364px; margin: 1em auto; vertical-align: bottom; text-align:center; display: inline-block; }
+
+.exec-container > p {margin: 0;} /* gets rid of annoying vertical spaces from auto-generated WordPress <p> */
 
 /* an img class */
 .exec-photo {
@@ -159,6 +220,12 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 }
 
 .placeholder { font-size: 0; height: 0; }
+
+/*
+    ----------------------------------------------------
+    Responsive UI
+    ----------------------------------------------------
+*/
 
 /* the styles below create responsive tables such that when you view the website on a smartphone, the table rows automatically stack themselves vertically. This is especially useful for the Executive Board biographies found on the "Meet the Team" page—the bios will be in two columns on large browsers, but when space is limited (like on smartphones) the two columns collapse into one*/
 @media only screen and (max-width: 48em)
