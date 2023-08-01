@@ -15,6 +15,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900'); /* black italic */
 /* End Google fonts stuff. */
 
+:root{
+    --CarSO-blue: #0094FF;
+    --CarSO-light-blue: #AAE4FF;
+}
+
 .page, .site {
     font-family: 'Roboto',sans-serif;
 }
@@ -23,10 +28,17 @@
 
 /* WordPress Twenty-Seventeen has uppercase h1 titles by default. This changes the styles of h1 to whatever you set below */
 .page .panel-content .entry-title, .page-title, body.page:not(.twentyseventeen-front-page) .entry-title {
+    display: none;
+    /*
     text-transform:none;
     letter-spacing:0.05em;
-    font-size: 223%; /* "the smallest prime for which the two nearest primes on either side of it are 16 units apart" -Wikipedia
-    the real reason I chose 223 is so that long h1 text isn't longer than a single line */
+    font-size: 223%; 
+    */
+}
+
+/* gets rid of ugly space at top of home page */
+.page.page-one-column .entry-header, .twentyseventeen-front-page.page-one-column .entry-header, .archive.page-one-column:not(.has-sidebar) .page-header {
+    margin: 0;
 }
 
 .site-title {
@@ -39,7 +51,13 @@
 
 h2 {
     font-weight: bold;
-    color: #000000;
+    font-size: 24pt;
+    letter-spacing: 0.02em;
+    color: var(--CarSO-blue);
+    text-shadow: 1px      1px  0px  var(--CarSO-light-blue),
+                 1.5px  1.5px  0px  var(--CarSO-light-blue),
+                 2px      2px  0px  var(--CarSO-light-blue),
+                 2.5px  2.5px  0px  var(--CarSO-light-blue);
 }
 
 /*
@@ -69,9 +87,12 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     ----------------------------------------------------
 */
 .pseudobutton {
-    width: 100px; 
-    border: 1.5px solid #0094FF; 
-    background-color: #0094FF; 
+    width: -moz-fit-content; 
+    width: fit-content;
+    padding: 10px 20px;
+    margin:auto;
+    border: 3px solid var(--CarSO-blue); 
+    background-color: var(--CarSO-blue); 
     text-align: center;
     transition: 0.3s;
 }
@@ -82,6 +103,8 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 
 .pseudobutton a{
     color: #FFFFFF;
+    box-shadow: none;
+    -webkit-box-shadow: none;
     transition: 0.3s;
 }
 
@@ -89,6 +112,104 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     color: #333333;
 }
 
+/*
+    ----------------------------------------------------
+    Fancy image with backdrop that fills with blue
+    ----------------------------------------------------
+*/
+.fancy-image-container {
+    display: inline-block;
+    margin:auto;
+    position: static;
+    height: calc(200px + 13px);
+}
+
+.fancy-image-container img {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    z-index: 2;
+}
+
+.fancy-image-backdrop {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    top: calc(13px - 200px);
+    left: 13px;
+    z-index: 0;
+    background-color: rgba(0,0,0,0);
+    border: 3px solid var(--CarSO-blue);
+    transition: 1s ease;
+}
+
+.fancy-image-backdrop::before {
+    background-color: var(--CarSO-blue);
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    content: "";
+    z-index: 1;
+    transition: 0.5s ease;
+}
+
+.fill-rightwards::before {
+    width: 0;
+    height: 100%;
+}
+
+.fill-upwards::before {
+    width: 100%;
+    height: 0;
+}
+
+.fancy-image-container:hover .fill-rightwards::before {
+    width:  100%;
+}
+
+.fancy-image-container:hover .fill-upwards::before {
+    height: 100%;
+}
+
+.vertical-align-top {
+    vertical-align: top;
+}
+
+.vertical-align-middle {
+    vertical-align: middle;
+}
+
+.vertical-align-bottom {
+    vertical-align: bottom;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.align-items-stretch {
+    align-items: stretch;
+}
+
+/*
+    ----------------------------------------------------
+    Custom home page
+    ----------------------------------------------------
+*/
+.page-id-23 .panel-content .wrap {
+    width: 1600px;
+    max-width:90%;
+    /*margin:0;*/
+}
+
+.half-width {
+    width: 48%;
+    display: inline-block;
+}
 
 /*
     ----------------------------------------------------
@@ -127,19 +248,39 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 #wp-custom-header img { filter: contrast(0.8); }
 
 /* begin fancy top menu. This makes the top menu with "Home", "Volunteering", "Contact", etc. much fancier */
-#top-menu .menu-item{ transition:0.5s; } /* set time for hover transition to half a second */
-#top-menu .menu-item a{ color:#0094FF; font-size: 120%; } /* make font blue and bigger. Note that we use the web accessible blue #0094FF instead of our usual blue #00AFFF */
-#top-menu .menu-item:hover { background-color:#b0e8ff; } /* on hover, menu items get blue background rectangle */
+#top-menu .menu-item{ 
+    transition:0.5s; /* set time for hover transition to half a second */
+} 
+#top-menu .menu-item a{ /* make font blue and bigger */
+    color:var(--CarSO-blue);
+    font-size: 125%;
+} 
+
+#top-menu .menu-item::before{
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    content: "";
+    z-index: -2;
+    transition: 0.5s ease;
+}
+#top-menu .menu-item:hover::before { /* on hover, menu items get white background rectangle */
+    width: 100%;
+} 
 
 .navigation-top { background:none; border-top:none; } /* front page becomes purely picture when loaded; no white bar at bottom of screen */
 
-.navigation-top.site-navigation-fixed{ background:#fafafa; } /* why #fafafa? That just happens to be the default color of the element behind the top menu when .navigation-top has background changed to none. */
+.site-header {background-color: white;}
+.navigation-top.site-navigation-fixed{ background-color:white; }
 
-/* end fancier top menu CSS. If a future WordPress Twenty-Seventeen update happens to destroy the functionality of this fancy design, the code above can be deleted to restore the top menu to how it originally was (it'll prob never happen, because Twenty-Seventeen has been out for three years now, and WordPress won't just go revamping old themes) */
+/* end fancier top menu CSS. If a future WordPress Twenty-Seventeen update happens to destroy the functionality of this fancy design, the code above can be deleted to restore the top menu to how it originally was (it'll prob never happen because WordPress doesn't just go revamping old themes, and UNC ITS would need to download it too) */
 
 /* social media icons at the bottom of the page are CarSO blue instead of black when mouse hovers them */
 .social-navigation a{ transition:0.3s; }
-.social-navigation a:hover, .social-navigation a:focus { background-color: #0094FF; }
+.social-navigation a:hover, .social-navigation a:focus { background-color: var(--CarSO-blue); }
 
 /*
     ----------------------------------------------------
@@ -148,7 +289,14 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 */
 
 /* the div that contains the name, position, and biography of each executive board member. All the other classes beginning with "exec" are descendants of this class */
-.exec-container { width: 100%; max-width:364px; margin: 1em auto; vertical-align: bottom; text-align:center; display: inline-block; }
+.exec-container {
+    width: 100%;
+    max-width:364px;
+    margin: 1em auto;
+    vertical-align: bottom;
+    text-align:center;
+    display: inline-block;
+}
 
 .exec-container > p {margin: 0;} /* gets rid of annoying vertical spaces from auto-generated WordPress <p> */
 
@@ -156,6 +304,7 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 .exec-photo {
     width:300px;
     height:300px;
+    object-fit: cover;
     filter: blur(0);
     transition: 0.5s;
 }
@@ -190,7 +339,7 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     visibility: hidden;
     opacity: 0;
     overflow: auto;
-    scrollbar-width: thin; /* currently doesn't exist, but W3 has slated to add this in the future. Already works in Firefox */
+    scrollbar-width: thin; /* already works in Firefox; experimental support for Edge */
     padding: 0.5em;
     text-align: left;
     hyphens: auto;
@@ -226,6 +375,12 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     Responsive UI
     ----------------------------------------------------
 */
+@media only screen and (max-width: 768px) {
+    .responsive-width-100percent {
+        width: 100%;
+        /*min-width: 603px;*/
+    }
+}
 
 /* the styles below create responsive tables such that when you view the website on a smartphone, the table rows automatically stack themselves vertically. This is especially useful for the Executive Board biographies found on the "Meet the Team" page—the bios will be in two columns on large browsers, but when space is limited (like on smartphones) the two columns collapse into one*/
 @media only screen and (max-width: 48em)
