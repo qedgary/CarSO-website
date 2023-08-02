@@ -54,10 +54,30 @@ h2 {
     font-size: 24pt;
     letter-spacing: 0.02em;
     color: var(--CarSO-blue);
-    text-shadow: 1px      1px  0px  var(--CarSO-light-blue),
-                 1.5px  1.5px  0px  var(--CarSO-light-blue),
-                 2px      2px  0px  var(--CarSO-light-blue),
-                 2.5px  2.5px  0px  var(--CarSO-light-blue);
+    text-shadow: 0.5px  0.5px  var(--CarSO-light-blue), 
+                   1px    1px  var(--CarSO-light-blue),
+                 1.5px  1.5px  var(--CarSO-light-blue),
+                   2px    2px  var(--CarSO-light-blue),
+                 2.5px  2.5px  var(--CarSO-light-blue);
+}
+
+h2::after {
+    height: 7px;
+    width: 100px;
+    margin-top: 10px;
+    background-color: var(--CarSO-blue);
+    content: "";
+    display: block;
+    transition: 0.5s ease;
+    box-shadow: 0.5px  0.5px  var(--CarSO-light-blue), 
+                  1px    1px  var(--CarSO-light-blue),
+                1.5px  1.5px  var(--CarSO-light-blue),
+                  2px    2px  var(--CarSO-light-blue),
+                2.5px  2.5px  var(--CarSO-light-blue);
+}
+
+h2:hover::after {
+    width: 100%;
 }
 
 /*
@@ -117,30 +137,29 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     Fancy image with backdrop that fills with blue
     ----------------------------------------------------
 */
+
 .fancy-image-container {
     display: inline-block;
     margin:auto;
-    position: static;
-    height: calc(200px + 13px);
+    position: relative;
 }
 
 .fancy-image-container img {
-    width: 200px;
-    height: 200px;
+    width: 90%;
+    height: auto;
     position: relative;
     z-index: 2;
 }
 
 .fancy-image-backdrop {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    top: calc(13px - 200px);
+    width: 90%;
+    height: 99%;
+    position: absolute;
+    top: 13px;
     left: 13px;
     z-index: 0;
     background-color: rgba(0,0,0,0);
     border: 3px solid var(--CarSO-blue);
-    transition: 1s ease;
 }
 
 .fancy-image-backdrop::before {
@@ -153,6 +172,7 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     transition: 0.5s ease;
 }
 
+/* Classes for blue rectangle fill transition behind images: one class wipes rightwards, and the other wipes upwards. The apparent fill occurs when a pseudoelement grows from an element of either zero width or zero height into an element of 100% width of 100% height, thereby creating the appearance of a box being filled by a blue rectangle */
 .fill-rightwards::before {
     width: 0;
     height: 100%;
@@ -164,35 +184,26 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 }
 
 .fancy-image-container:hover .fill-rightwards::before {
-    width:  100%;
+    width: 100%;
 }
 
 .fancy-image-container:hover .fill-upwards::before {
     height: 100%;
 }
 
-.vertical-align-top {
-    vertical-align: top;
+/*
+The fancy-image-left-half and fancy-image-right-half classes are applied to two side-by-side images on the main page. Note that these both use align-self, which only works inside an element where `display` is `flex` or `inline-flex`. I've also arbitrarily decided that each can have a maximum width of 320px, but this can be a disadvantage for large monitors
+*/
+div.fancy-image-left-half {
+    align-self: flex-start;
+    margin-right: auto;
+    max-width: 320px;
 }
 
-.vertical-align-middle {
-    vertical-align: middle;
-}
-
-.vertical-align-bottom {
-    vertical-align: bottom;
-}
-
-.text-align-center {
-    text-align: center;
-}
-
-.text-align-right {
-    text-align: right;
-}
-
-.align-items-stretch {
-    align-items: stretch;
+div.fancy-image-right-half {
+    align-self: flex-end;
+    margin-left: auto;
+    max-width: 320;
 }
 
 /*
@@ -211,6 +222,20 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     display: inline-block;
 }
 
+.flex-wrap {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 60px;
+}
+
+.flex-wrap-reverse {
+    display: inline-flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    margin-bottom: 100px;
+}
+
 /*
     ----------------------------------------------------
     Custom 404 page
@@ -221,7 +246,7 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     font-size:12pt;
     white-space:pre-wrap;
     hyphens:auto;
-    content:"Uh-oh: it's the classic mystery of the 404. This page has gone missing, and we don't know where it is. Sorry! \A\A However, while we didn't find the page, we did find magnesium sulfate, low-density polyethylene, squirrel hair, dipteran larvae, a suitcase full of money (aka SciOly tests), plus a fingerprint with a radial loop. Maybe with these clues, you can figure out what happened to the page? \A\A Or you could try a quick search below. That works too.";
+    content:"Uh-oh: it’s the classic mystery of the 404. This page has gone missing, and we have zero idea where it got lost to. Sorry about that! \A\A However, while we didn’t find your page, we did find a few other things: some magnesium sulfate, low-density polyethylene, squirrel hair, dipteran larvae, a fingerprint with a radial loop, and a suitcase full of money (aka SciOly tests). Maybe with these clues, you can figure out what happened to your page? \A\A Or you could use the search bar below. That works too.";
 }
 
 .error-404 h1 { margin-bottom: 0px; }
@@ -230,7 +255,7 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     content: " ";
     display: block;
     background-image: url(https://scioly.web.unc.edu/wp-content/uploads/sites/22331/2020/07/fingerprint404.png);
-    background-size: 195px 80px;
+    background-size: 234px 96px;
     background-repeat: no-repeat;
     white-space: pre;
     height: 120px;
@@ -300,7 +325,7 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 
 .exec-container > p {margin: 0;} /* gets rid of annoying vertical spaces from auto-generated WordPress <p> */
 
-/* an img class */
+/* a class applied to an img */
 .exec-photo {
     width:300px;
     height:300px;
