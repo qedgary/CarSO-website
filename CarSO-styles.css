@@ -149,6 +149,8 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
     height: auto;
     position: relative;
     z-index: 2;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .fancy-image-backdrop {
@@ -192,18 +194,23 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 }
 
 /*
-The fancy-image-left-half and fancy-image-right-half classes are applied to two side-by-side images on the main page. Note that these both use align-self, which only works inside an element where `display` is `flex` or `inline-flex`. I've also arbitrarily decided that each can have a maximum width of 320px, but this can be a disadvantage for large monitors
+The fancy-image-left-half and fancy-image-right-half classes are applied to two side-by-side images on the main page. Note that these both use align-self, which only works inside an element where `display` is `flex` or `inline-flex`. I've also arbitrarily decided that each can have a maximum width of 300px, but this can be a disadvantage for large monitors
 */
 div.fancy-image-left-half {
     align-self: flex-start;
     margin-right: auto;
-    max-width: 320px;
+    max-width: 300px;
 }
 
 div.fancy-image-right-half {
     align-self: flex-end;
     margin-left: auto;
-    max-width: 320;
+    max-width: 300px;
+}
+
+/* this style serves no purpose in the test html files, but because WordPress automatically adds empty <p> elements, we need this style to effectively delete these empty <p> elements */
+.fancy-image-container p {
+    display: none;
 }
 
 /*
@@ -246,7 +253,7 @@ div.fancy-image-right-half {
     font-size:12pt;
     white-space:pre-wrap;
     hyphens:auto;
-    content:"Uh-oh: it’s the classic mystery of the 404. This page has gone missing, and we have zero idea where it got lost to. Sorry about that! \A\A However, while we didn’t find your page, we did find a few other things: some magnesium sulfate, low-density polyethylene, squirrel hair, dipteran larvae, a fingerprint with a radial loop, and a suitcase full of money (aka SciOly tests). Maybe with these clues, you can figure out what happened to your page? \A\A Or you could use the search bar below. That works too.";
+    content:"Uh-oh: it’s the classic mystery of the 404. This page has gone missing, and we have zero idea where it got lost to. Sorry about that! \A\A However, while snooping around for your page, we did find a few other things: some magnesium sulfate, low-density polyethylene, squirrel hair, dipteran larvae, a fingerprint with a radial loop, and a suitcase full of money (aka SciOly tests). Maybe with these clues, you can figure out what happened to your page? \A\A Or you could use the search bar below. That works too.";
 }
 
 .error-404 h1 { margin-bottom: 0px; }
