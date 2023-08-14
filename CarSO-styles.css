@@ -28,12 +28,14 @@
 
 /* WordPress Twenty-Seventeen has uppercase h1 titles by default. This changes the styles of h1 to whatever you set below */
 .page .panel-content .entry-title, .page-title, body.page:not(.twentyseventeen-front-page) .entry-title {
-    display: none;
-    /*
     text-transform:none;
     letter-spacing:0.05em;
     font-size: 223%; 
-    */
+}
+
+/* make home page header disappear */
+#post-23 .entry-title {
+    display: none;
 }
 
 /* gets rid of ugly space at top of home page */
@@ -48,6 +50,12 @@
     font-weight: bold; /* to prevent heavy weights */
     letter-spacing: 0; /* removes ugly default spacing */
 }
+
+/*
+    ----------------------------------------------------
+    Fancy <h2> section titles with hover transition
+    ----------------------------------------------------
+*/
 
 h2 {
     font-weight: bold;
@@ -109,20 +117,14 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 .pseudobutton {
     width: -moz-fit-content; 
     width: fit-content;
-    padding: 10px 20px;
-    margin:auto;
-    border: 3px solid var(--CarSO-blue); 
-    background-color: var(--CarSO-blue); 
-    text-align: center;
-    transition: 0.3s;
+    margin: auto auto 20px auto;
 }
 
-.pseudobutton:hover, .pseudobutton:focus {
-    background-color: #FFFFFF; 
-}
-
-.pseudobutton a{
+.entry-content .pseudobutton a{
     color: #FFFFFF;
+    padding: 10px 20px;
+    border: 3px solid var(--CarSO-blue);
+    background-color: var(--CarSO-blue);
     box-shadow: none;
     -webkit-box-shadow: none;
     transition: 0.3s;
@@ -130,6 +132,20 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 
 .pseudobutton:hover a, .pseudobutton:focus a {
     color: #333333;
+    background-color: #FFFFFF; 
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+/* to have multiple pseudobuttons on the same line, surround each pseudobutton with <div class="multi-pseudobutton-container"> */
+.multi-pseudobutton-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.multi-pseudobutton-container .pseudobutton {
+    margin: auto 3px 20px 3px;
 }
 
 /*
@@ -324,13 +340,13 @@ div.fancy-image-right-half {
 .exec-container {
     width: 100%;
     max-width:364px;
-    margin: 1em auto;
+    margin: 2em auto;
     vertical-align: bottom;
     text-align:center;
     display: inline-block;
 }
 
-.exec-container > p {margin: 0;} /* gets rid of annoying vertical spaces from auto-generated WordPress <p> */
+.exec-container > p {margin: 0 0 0.5em 0;} /* reduces the annoying vertical spaces from auto-generated WordPress <p> elements */
 
 /* a class applied to an img */
 .exec-photo {
@@ -341,22 +357,23 @@ div.fancy-image-right-half {
     transition: 0.5s;
 }
 
-/* a div class that contains the image and text, which detects the hover */
+/* a div class that contains the image and text */
 .exec-photo-wrapper {
     position: relative;
     height: 300px;
     width: 300px;
-    left:50%; transform: translateX(-50%); /* centers the photo */
-    overflow:hidden;
+    left: 50%;
+    transform: translateX(-50%); /* centers the photo */
+    overflow: hidden;
 }
 
 /* if a hovered exec-photo-wrapper contains an exec-photo, then blur the photo*/
-.exec-photo-wrapper:hover .exec-photo {
+.exec-container:hover .exec-photo {
     filter: blur(2px);
 }
 
 /* if a hovered exec-photo-wrapper contains an exec-biography, then change the exec-biography to visible (by default, its visibility is hidden) */
-.exec-photo-wrapper:hover .exec-biography {
+.exec-container:hover .exec-biography {
     visibility: visible;
     opacity: 0.8;
 }
@@ -401,6 +418,23 @@ div.fancy-image-right-half {
 }
 
 .placeholder { font-size: 0; height: 0; }
+
+/* special styling just for the "Meet the Team" page */
+.page-id-87 h2 {
+    margin-bottom: 13px;
+}
+
+.page-id-87 h2::after {
+    margin: 10px auto 0 auto;
+}
+
+.page-id-87 .exec-container:hover h2::after {
+    width: 300px;
+}
+
+.page-id-87 strong {
+    font-size: 120%;
+}
 
 /*
     ----------------------------------------------------
