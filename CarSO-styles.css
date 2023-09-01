@@ -297,7 +297,7 @@ div.fancy-image-right-half {
 
 /* begin fancy top menu. This makes the top menu with "Home", "Volunteering", "Contact", etc. much fancier */
 #top-menu .menu-item{ 
-    transition:0.5s; /* set time for hover transition to half a second */
+    transition:0.5s; /* set time for hover transition to half a second. This has been obsoleted in the 2023 website redesign */
 } 
 #top-menu .menu-item a{ /* make font blue and bigger */
     color:var(--CarSO-blue);
@@ -306,17 +306,19 @@ div.fancy-image-right-half {
 
 #top-menu .menu-item::before{
     background-color: white;
+    border-bottom: solid 5px var(--CarSO-blue);
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: 50%;
     width: 0;
     height: 100%;
     content: "";
     z-index: -2;
-    transition: 0.5s ease;
+    transition: 0.4s ease;
 }
 #top-menu .menu-item:hover::before { /* on hover, menu items get white background rectangle */
     width: 100%;
+    right:0;
 } 
 
 .navigation-top { background:none; border-top:none; } /* front page becomes purely picture when loaded; no white bar at bottom of screen */
