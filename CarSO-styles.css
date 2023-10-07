@@ -28,9 +28,10 @@
 
 /* WordPress Twenty-Seventeen has uppercase h1 titles by default. This changes the styles of h1 to whatever you set below */
 .page .panel-content .entry-title, .page-title, body.page:not(.twentyseventeen-front-page) .entry-title {
-    text-transform:none;
-    letter-spacing:0.05em;
-    font-size: 223%; 
+    text-transform: none;
+    letter-spacing: 0em;
+    font-size: 350%; 
+    text-align:center;
 }
 
 /* make home page header disappear */
@@ -84,7 +85,7 @@ h2::after {
                 2.5px  2.5px  var(--CarSO-light-blue);
 }
 
-h2:hover::after {
+.half-width:hover > h2::after, h2:hover::after {
     width: 100%;
     transition: 0.6s ease;
 }
@@ -122,6 +123,8 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 }
 
 .entry-content .pseudobutton a{
+    display: inline-block;
+    text-align: center;
     color: #FFFFFF;
     padding: 10px 20px;
     border: 3px solid var(--CarSO-blue);
@@ -172,7 +175,7 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 
 .fancy-image-backdrop {
     width: 90%;
-    height: 99%;
+    height: 98%;
     position: absolute;
     top: 13px;
     left: 13px;
@@ -182,6 +185,30 @@ Note that we don't actually need this because the .alertCarolinaMessage is set t
 }
 
 .fancy-image-backdrop::before {
+    background-color: var(--CarSO-blue);
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    content: "";
+    z-index: 1;
+    transition: 0.7s ease;
+}
+
+/* A variant of fancy-image-backdrop, where the backdrop is to the left rather than to the right of the image 
+   Unlike the normal fancy-image-backdrop, this CSS is a little broken for reasons I don't understand, so don't use it *too* much
+*/
+.fancy-image-backdrop-left {
+    width: 90%;
+    height: 98%;
+    position: absolute;
+    top: 12px;
+    left:-13px;
+    z-index: 0;
+    background-color: rgba(0,0,0,0);
+    border: 3px solid var(--CarSO-blue);
+}
+
+.fancy-image-backdrop-left::before {
     background-color: var(--CarSO-blue);
     position: absolute;
     bottom: 0px;
@@ -275,7 +302,11 @@ div.fancy-image-right-half {
     content:"Uh-oh: it’s the classic mystery of the 404. This page has gone missing, and we have zero idea where it got lost to. Sorry about that! \A\A However, while snooping around for your page, we did find a few other things: some magnesium sulfate, low-density polyethylene, squirrel hair, dipteran larvae, a fingerprint with a radial loop, and a suitcase full of money (aka SciOly tests). Maybe with these clues, you can figure out what happened to your page? \A\A Or you could use the search bar below. That works too.";
 }
 
-.error-404 h1 { margin-bottom: 0px; }
+.error-404 h1 {
+    margin-bottom: 0px;
+    color: var(--CarSO-blue);
+    font-size: 270%;
+}
 
 .error-404 h1.page-title::after {
     content: " ";
@@ -288,6 +319,8 @@ div.fancy-image-right-half {
     width: auto;
     background-position-x: center;
     background-position-y: bottom;
+    margin-top: 12px;
+    padding-top: 12px;
 }
 
 /*
@@ -331,7 +364,7 @@ div.fancy-image-right-half {
                 right            0.3s ease;
 }
 
-.navigation-top { background:none; border-top:none; } /* front page becomes purely picture when loaded; no white bar at bottom of screen */
+.navigation-top { background:none; border-top:none; border-bottom: 1px solid #ccc;} /* front page becomes purely picture when loaded; no white bar at bottom of screen */
 
 .site-header {background-color: white;}
 .navigation-top.site-navigation-fixed{ background-color:white; }
@@ -367,6 +400,8 @@ div.fancy-image-right-half {
     object-fit: cover;
     filter: blur(0);
     transition: 0.5s;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 /* a div class that contains the image and text */
@@ -466,6 +501,12 @@ div.fancy-image-right-half {
     .navigation-top {
         background:#ffffff;
         border-top:1px solid #eee;
+    }
+    .page .panel-content .entry-title, .page-title, body.page:not(.twentyseventeen-front-page) .entry-title {
+        font-size: 250%; 
+    }
+    .error-404 h1.page-title::after {
+        border-top: var(--CarSO-light-blue) solid 5px;
     }
     /*
     .page-id-87 #content > div.wrap > .content-area {
